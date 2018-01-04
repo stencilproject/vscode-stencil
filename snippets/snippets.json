@@ -1,0 +1,62 @@
+{
+	"block": {
+		"prefix": "block",
+		"body": "{% block ${1:name} %}\n\t$0\n{% endblock %}",
+		"description": "block"
+	},
+	"extends": {
+		"prefix": "extends",
+		"body": "{% extends \"${1:template}\" %}\n$0",
+		"description": "extends"
+	},
+	"filter": {
+		"prefix": "filter",
+		"body": "{% filter ${1:name} %}\n\t$0\n{% endfilter %}",
+		"description": "filter"
+	},
+	"for": {
+		"prefix": "for",
+		"body": "{% for ${1:item} in ${2:array} %}\n\t$0\n{% endfor %}",
+		"description": "for"
+	},
+	"fordict": {
+		"prefix": "fordict",
+		"body": "{% for ${1:key}, ${2:value} in ${3:dictionary} %}\n\t$0\n{% endfor %}",
+		"description": "fordict"
+	},
+	"fordictempty": {
+		"prefix": "fordictempty",
+		"body": "{% for ${1:key}, ${2:value} in ${3:dictionary} %}\n\t$0\n{% empty %}\n\t\n{% endfor %}",
+		"description": "fordictempty"
+	},
+	"forempty": {
+		"prefix": "forempty",
+		"body": "{% for ${1:item} in ${2:array} %}\n\t$0\n{% empty %}\n\t\n{% endfor %}",
+		"description": "forempty"
+	},
+	"if": {
+		"prefix": "if",
+		"body": "{% if ${1:condition} %}\n\t$0\n{% endif %}",
+		"description": "if"
+	},
+	"ifelse": {
+		"prefix": "ifelse",
+		"body": "{% if ${1:condition} %}\n\t$0\n{% else %}\n\t\n{% endif %}",
+		"description": "ifelse"
+	},
+	"ifif": {
+		"prefix": "ifif",
+		"body": "{% if ${1:condition} %}\n\t$0\n{% elif ${2:condition} %}\n\t\n{% endif %}",
+		"description": "ifif"
+	},
+	"ififelse": {
+		"prefix": "ififelse",
+		"body": "{% if ${1:condition} %}\n\t$0\n{% elif ${2:condition} %}\n\t\n{% else %}\n\t\n{% endif %}",
+		"description": "ififelse"
+	},
+	"include": {
+		"prefix": "include",
+		"body": "{% include \"${1:template}\" %}\n$0",
+		"description": "include"
+	}
+}

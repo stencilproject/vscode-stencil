@@ -1,0 +1,57 @@
+{
+    "name": "stencil",
+    "displayName": "Stencil",
+    "description": "Support for the Stencil template language.",
+    "version": "1.0.0",
+    "publisher": "Steven Van Impe",
+    "author": {
+        "name": "Steven Van Impe",
+        "email": "steven.vanimpe@icloud.com",
+        "url": "http://svanimpe.be"
+    },
+    "icon": "./images/icon.png",
+    "homepage": "https://github.com/svanimpe/vscode-stencil",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/svanimpe/vscode-stencil"
+    },
+    "bugs": {
+        "url": "https://github.com/svanimpe/vscode-stencil/issues"
+    },
+    "engines": {
+        "vscode": "^1.19.0"
+    },
+    "categories": [
+        "Languages",
+        "Snippets"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "stencil",
+            "aliases": ["Stencil"],
+            "extensions": [".stencil"],
+            "configuration": "./stencil-language-configuration.json"
+        }, {
+            "id": "stencil-html",
+            "aliases": ["Stencil for HTML"],
+            "extensions": [".html.stencil"],
+            "configuration": "./stencil-html-language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "stencil",
+            "scopeName": "text.stencil",
+            "path": "./syntaxes/stencil.tmLanguage"
+        }, {
+            "language": "stencil-html",
+            "scopeName": "text.html.stencil",
+            "path": "./syntaxes/stencil-html.tmLanguage"
+        }],
+        "snippets": [{
+            "language": "stencil",
+            "path": "./snippets/snippets.json"
+        }, {
+            "language": "stencil-html",
+            "path": "./snippets/snippets.json"
+        }]
+    }
+}

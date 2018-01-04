@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Stencil for HTML</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>text.stencil</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>text.html.basic</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>text.html.stencil</string>
+	<key>uuid</key>
+	<string>3D78F1FA-620C-40E6-89A3-ED9FF172AE2A</string>
+</dict>
+</plist>
