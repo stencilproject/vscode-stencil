@@ -21,12 +21,12 @@
 	},
 	"fordict": {
 		"prefix": "fordict",
-		"body": "{% for ${1:key}, ${2:value} in ${3:dictionary} %}\n\t$0\n{% endfor %}",
+		"body": "{% for ${1:key},${2:value} in ${3:dictionary} %}\n\t$0\n{% endfor %}",
 		"description": "fordict"
 	},
 	"fordictempty": {
 		"prefix": "fordictempty",
-		"body": "{% for ${1:key}, ${2:value} in ${3:dictionary} %}\n\t$0\n{% empty %}\n\t\n{% endfor %}",
+		"body": "{% for ${1:key},${2:value} in ${3:dictionary} %}\n\t$0\n{% empty %}\n\t\n{% endfor %}",
 		"description": "fordictempty"
 	},
 	"forempty": {
