@@ -3,13 +3,13 @@
     "displayName": "Stencil",
     "description": "Support for the Stencil template language.",
     "version": "1.0.0",
-    "publisher": "Steven Van Impe",
+    "publisher": "svanimpe",
     "author": {
         "name": "Steven Van Impe",
         "email": "steven.vanimpe@icloud.com",
         "url": "http://svanimpe.be"
     },
-    "icon": "./images/icon.png",
+    "icon": "images/icon.png",
     "homepage": "https://github.com/svanimpe/vscode-stencil",
     "repository": {
         "type": "git",
@@ -30,28 +30,28 @@
             "id": "stencil",
             "aliases": ["Stencil"],
             "extensions": [".stencil"],
-            "configuration": "./stencil-language-configuration.json"
+            "configuration": "stencil-language-configuration.json"
         }, {
             "id": "stencil-html",
             "aliases": ["Stencil for HTML"],
             "extensions": [".html.stencil"],
-            "configuration": "./stencil-html-language-configuration.json"
+            "configuration": "stencil-html-language-configuration.json"
         }],
         "grammars": [{
             "language": "stencil",
             "scopeName": "text.stencil",
-            "path": "./syntaxes/stencil.tmLanguage"
+            "path": "syntaxes/stencil.tmLanguage"
         }, {
             "language": "stencil-html",
             "scopeName": "text.html.stencil",
-            "path": "./syntaxes/stencil-html.tmLanguage"
+            "path": "syntaxes/stencil-html.tmLanguage"
         }],
         "snippets": [{
             "language": "stencil",
-            "path": "./snippets/snippets.json"
+            "path": "snippets/snippets.json"
         }, {
             "language": "stencil-html",
-            "path": "./snippets/snippets.json"
+            "path": "snippets/snippets.json"
         }]
     }
 }
