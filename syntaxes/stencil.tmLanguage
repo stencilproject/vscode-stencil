@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>fileTypes</key>
-	<array>
-		<string>stencil</string>
-	</array>
 	<key>name</key>
 	<string>Stencil</string>
 	<key>patterns</key>
@@ -17,6 +13,10 @@
 		<dict>
 			<key>include</key>
 			<string>#variable</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#tag-filter</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -55,14 +55,14 @@
 		<key>expression</key>
 		<dict>
 			<key>comment</key>
-			<string>A Boolean expression.</string>
+			<string>An expression that may include operators.</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>comment</key>
 					<string>A keyword operator.</string>
 					<key>match</key>
-					<string>(?&lt;=\s)(?:and|or|not)(?=\s)</string>
+					<string>(?&lt;=\s)(?:and|or|not|in)(?=\s)</string>
 					<key>name</key>
 					<string>keyword.control.stencil</string>
 				</dict>
@@ -76,16 +76,99 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#filtered-value</string>
+				</dict>
+			</array>
+		</dict>
+		<key>filter</key>
+		<dict>
+			<key>applyEndPatternLast</key>
+			<integer>1</integer>
+			<key>begin</key>
+			<string>\|</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.filter.begin.stencil</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>A filter.</string>
+			<key>end</key>
+			<string></string>
+			<key>name</key>
+			<string>meta.filter.stencil</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>The filter's name.</string>
+					<key>match</key>
+					<string>[^\s:|%}]+</string>
+					<key>name</key>
+					<string>support.function.filter.stencil</string>
+				</dict>
+				<dict>
+					<key>applyEndPatternLast</key>
+					<integer>1</integer>
+					<key>begin</key>
+					<string>:</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.filter-parameter.begin.stencil</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>The filter's parameters.</string>
+					<key>end</key>
+					<string></string>
+					<key>name</key>
+					<string>meta.filter-parameter.stencil</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#value</string>
+						</dict>
+						<dict>
+							<key>comment</key>
+							<string>A separator between filter parameters.</string>
+							<key>match</key>
+							<string>,</string>
+							<key>name</key>
+							<string>punctuation.separator.filter-parameter.stencil</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>filtered-value</key>
+		<dict>
+			<key>comment</key>
+			<string>A value with zero or more filters applied.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
 					<string>#value</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#filter</string>
 				</dict>
 			</array>
 		</dict>
 		<key>number</key>
 		<dict>
 			<key>comment</key>
-			<string>A number constant.</string>
+			<string>A number literal.</string>
 			<key>match</key>
-			<string>(?&lt;=\s)-?(?:0|[1-9]\d*)(?:\.\d+)?(?=\s)</string>
+			<string>(?&lt;=[\s\.:,{%])-?(?:0|[1-9]\d*)(?:\.\d+)?(?=[\s\.,|%}])</string>
 			<key>name</key>
 			<string>constant.numeric.stencil</string>
 		</dict>
@@ -102,7 +185,7 @@
 				</dict>
 			</dict>
 			<key>comment</key>
-			<string>A string constant.</string>
+			<string>A string literal.</string>
 			<key>end</key>
 			<string>"</string>
 			<key>endCaptures</key>
@@ -119,26 +202,18 @@
 			<array>
 				<dict>
 					<key>comment</key>
-					<string>A valid escape character.</string>
-					<key>match</key>
-					<string>\\[\\"tn]</string>
-					<key>name</key>
-					<string>constant.character.escape.stencil</string>
-				</dict>
-				<dict>
-					<key>comment</key>
-					<string>An unsupported escape character.</string>
+					<string>An escape character.</string>
 					<key>match</key>
 					<string>\\.</string>
 					<key>name</key>
-					<string>invalid.illegal.character.escape.stencil</string>
+					<string>constant.character.escape.stencil</string>
 				</dict>
 			</array>
 		</dict>
 		<key>tag</key>
 		<dict>
 			<key>begin</key>
-			<string>(\{%) ([a-zA-Z]+)</string>
+			<string>(\{%)\s*([^\s%]+)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -153,7 +228,7 @@
 				</dict>
 			</dict>
 			<key>comment</key>
-			<string>A tag. Can be either a built-in tag or a custom one.</string>
+			<string>A tag.</string>
 			<key>end</key>
 			<string>%\}</string>
 			<key>endCaptures</key>
@@ -169,62 +244,6 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>applyEndPatternLast</key>
-					<integer>1</integer>
-					<key>begin</key>
-					<string>(?&lt;=\{%\sfilter)\s*</string>
-					<key>comment</key>
-					<string>A list of filters to apply in a filter tag.</string>
-					<key>end</key>
-					<string></string>
-					<key>name</key>
-					<string>meta.filter-list.stencil</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>comment</key>
-							<string>A filter's name.</string>
-							<key>match</key>
-							<string>\b[a-zA-Z][a-zA-Z0-9]*\b</string>
-							<key>name</key>
-							<string>support.function.filter.stencil</string>
-						</dict>
-						<dict>
-							<key>begin</key>
-							<string>:(?=")</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.filter-parameter.begin.stencil</string>
-								</dict>
-							</dict>
-							<key>comment</key>
-							<string>A filter's parameter.</string>
-							<key>end</key>
-							<string>(?&lt;=")</string>
-							<key>name</key>
-							<string>meta.filter-parameter.stencil</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#string</string>
-								</dict>
-							</array>
-						</dict>
-						<dict>
-							<key>comment</key>
-							<string>A separator to chain filters.</string>
-							<key>match</key>
-							<string>\|</string>
-							<key>name</key>
-							<string>punctuation.definition.filter.begin.stencil</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
 					<key>comment</key>
 					<string>A keyword.</string>
 					<key>match</key>
@@ -236,7 +255,7 @@
 					<key>comment</key>
 					<string>A separator between the key and value in a for tag.</string>
 					<key>match</key>
-					<string>,\s?</string>
+					<string>,</string>
 					<key>name</key>
 					<string>punctuation.separator.key-value.stencil</string>
 				</dict>
@@ -246,10 +265,92 @@
 				</dict>
 			</array>
 		</dict>
+		<key>tag-filter</key>
+		<dict>
+			<key>begin</key>
+			<string>(\{%)\s*(filter)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.tag.begin.stencil</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.stencil</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>A filter tag.</string>
+			<key>end</key>
+			<string>%\}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.tag.end.stencil</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.tag.stencil</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>The initial filter's name.</string>
+					<key>match</key>
+					<string>[^\s:|%}]+</string>
+					<key>name</key>
+					<string>support.function.filter.stencil</string>
+				</dict>
+				<dict>
+					<key>applyEndPatternLast</key>
+					<integer>1</integer>
+					<key>begin</key>
+					<string>:</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.filter-parameter.begin.stencil</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>The initial filter's parameters.</string>
+					<key>end</key>
+					<string></string>
+					<key>name</key>
+					<string>meta.filter-parameter.stencil</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#value</string>
+						</dict>
+						<dict>
+							<key>comment</key>
+							<string>A separator between filter parameters.</string>
+							<key>match</key>
+							<string>,</string>
+							<key>name</key>
+							<string>punctuation.separator.filter-parameter.stencil</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#filter</string>
+				</dict>
+			</array>
+		</dict>
 		<key>value</key>
 		<dict>
 			<key>comment</key>
-			<string>A constant or property. May include one or more filters.</string>
+			<string>A property or literal.</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -262,75 +363,27 @@
 				</dict>
 				<dict>
 					<key>comment</key>
-					<string>A special property.</string>
+					<string>A language-defined property.</string>
 					<key>match</key>
-					<string>\b(?:block\.super|forloop\.(?:first|last|counter|counter0))\b</string>
+					<string>\b(?&lt;!\.)(?:block|forloop)\b|(?&lt;=block\.)super\b|(?&lt;=forloop\.)(?:counter|counter0)\b|(?&lt;=\.)(?:first|last|count)\b</string>
 					<key>name</key>
 					<string>variable.language.stencil</string>
 				</dict>
 				<dict>
 					<key>comment</key>
-					<string>A user-defined property. Can be several levels deep.</string>
+					<string>A user-defined property.</string>
 					<key>match</key>
-					<string>\b(?:[a-zA-Z][a-zA-Z0-9]*)(?:\.[a-zA-Z][a-zA-Z0-9]*)*\b</string>
+					<string>[^\s\.,|%}]+</string>
 					<key>name</key>
 					<string>variable.other.stencil</string>
 				</dict>
 				<dict>
-					<key>applyEndPatternLast</key>
-					<integer>1</integer>
-					<key>begin</key>
-					<string>\|</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.filter.begin.stencil</string>
-						</dict>
-					</dict>
 					<key>comment</key>
-					<string>A filter that can be applied to values. These can be chained.</string>
-					<key>end</key>
-					<string></string>
+					<string>A separator between properties.</string>
+					<key>match</key>
+					<string>\.</string>
 					<key>name</key>
-					<string>meta.filter.stencil</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>comment</key>
-							<string>The filter's name.</string>
-							<key>match</key>
-							<string>\b[a-zA-Z][a-zA-Z0-9]*\b</string>
-							<key>name</key>
-							<string>support.function.filter.stencil</string>
-						</dict>
-						<dict>
-							<key>begin</key>
-							<string>:(?=")</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.filter-parameter.begin.stencil</string>
-								</dict>
-							</dict>
-							<key>comment</key>
-							<string>The filter's parameter.</string>
-							<key>end</key>
-							<string>(?&lt;=")</string>
-							<key>name</key>
-							<string>meta.filter-parameter.stencil</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#string</string>
-								</dict>
-							</array>
-						</dict>
-					</array>
+					<string>punctuation.separator.property.stencil</string>
 				</dict>
 			</array>
 		</dict>
@@ -347,7 +400,7 @@
 				</dict>
 			</dict>
 			<key>comment</key>
-			<string>A variable. This evaluates a value.</string>
+			<string>A variable.</string>
 			<key>end</key>
 			<string>\}\}</string>
 			<key>endCaptures</key>
@@ -364,7 +417,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#value</string>
+					<string>#filtered-value</string>
 				</dict>
 			</array>
 		</dict>
