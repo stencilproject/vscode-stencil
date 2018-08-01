@@ -6,11 +6,11 @@ This extension adds support for the [Stencil](https://stencil.fuller.li) templat
 
 ### Syntax highlighting
 
-I've written a [TextMate grammar](https://github.com/svanimpe/stencil.tmbundle) specifically for Stencil. This should allow for the best possible syntax highlighting:
+This extension includes a [TextMate grammar](https://github.com/stencilproject/stencil.tmbundle) wirtten specifically for Stencil. This should allow for the best possible syntax highlighting:
 
 ![Stencil syntax highlighting](images/stencil.png)
 
-This extension also includes a **Stencil for HTML** language that supports both Stencil and HTML:
+Also included is a **Stencil for HTML** language that supports both Stencil and HTML:
 
 ![Stencil for HTML syntax highlighting](images/stencil-html.png)
 
@@ -72,7 +72,3 @@ If you use Stencil exclusively for HTML and would like to use the `.stencil` ext
 ## Known Issues
 
 Mixed grammars are not without issues and neither is Stencil for HTML. Because of the way grammars are embedded, Stencil will not be supported in embedded CSS or JavaScript. The template will work fine, but syntax highlighting and indentation will be off. I am looking into ways to improve this, but a perfect solution may not be possible.
-
-## Show your support
-
-If you've enjoyed my work or found it helpful, please consider <a href="https://www.patreon.com/svanimpe">becoming a patron</a>. Your support helps me free up time to work on my books and projects.

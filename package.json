@@ -2,7 +2,7 @@
     "name": "stencil",
     "displayName": "Stencil",
     "description": "Support for the Stencil template language.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "svanimpe",
     "author": {
         "name": "Steven Van Impe",
@@ -10,19 +10,19 @@
         "url": "http://svanimpe.be"
     },
     "icon": "images/icon.png",
-    "homepage": "https://github.com/svanimpe/vscode-stencil",
+    "homepage": "https://github.com/stencilproject/vscode-stencil",
     "repository": {
         "type": "git",
-        "url": "https://github.com/svanimpe/vscode-stencil"
+        "url": "https://github.com/stencilproject/vscode-stencil"
     },
     "bugs": {
-        "url": "https://github.com/svanimpe/vscode-stencil/issues"
+        "url": "https://github.com/stencilproject/vscode-stencil/issues"
     },
     "engines": {
         "vscode": "^1.19.0"
     },
     "categories": [
-        "Languages",
+        "Programming Languages",
         "Snippets"
     ],
     "contributes": {
